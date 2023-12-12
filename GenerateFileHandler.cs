@@ -159,6 +159,7 @@ namespace uwap.VSIX.PluginFilePacker
                 throw new Exception("Directory 'Files' not found!");
 
             string namespace_ = DetectNamespace(projPath, options);
+            string class_ = DetectClass(projPath, projName);
             using (StreamWriter writer = new StreamWriter($"{projPath}/FileHandler.cs", false, Encoding.UTF8))
             {
                 try
@@ -172,7 +173,7 @@ namespace uwap.VSIX.PluginFilePacker
                     await writer.WriteLineAsync();
                     await writer.WriteLineAsync($"namespace {namespace_};");
                     await writer.WriteLineAsync();
-                    await writer.WriteLineAsync($"public partial class {DetectClass(projPath, projName)} : Plugin");
+                    await writer.WriteLineAsync($"public partial class {class_} : Plugin");
                     await writer.WriteLineAsync("{");
                     await writer.WriteLineAsync("    public override byte[]? GetFile(string relPath, string pathPrefix, string domain)");
                     await writer.WriteLineAsync("    {");
