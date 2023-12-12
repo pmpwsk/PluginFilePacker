@@ -172,7 +172,7 @@ namespace uwap.VSIX.PluginFilePacker
                     await writer.WriteLineAsync();
                     await writer.WriteLineAsync($"namespace {namespace_};");
                     await writer.WriteLineAsync();
-                    await writer.WriteLineAsync($"public partial class {projName} : Plugin");
+                    await writer.WriteLineAsync($"public partial class {DetectClass(projPath, projName)} : Plugin");
                     await writer.WriteLineAsync("{");
                     await writer.WriteLineAsync("    public override byte[]? GetFile(string relPath, string pathPrefix, string domain)");
                     await writer.WriteLineAsync("    {");
@@ -250,6 +250,34 @@ namespace uwap.VSIX.PluginFilePacker
             foreach (string line in File.ReadAllLines(path))
                 if (line.StartsWith("namespace "))
                     return line.Remove(0, 10).Split(' ', '{', ';').First();
+            return null;
+        }
+
+        private string DetectClass(string projPath, string projName)
+        {
+            string result = null;
+            if (File.Exists(projPath + "/FileHandler.cs"))
+                result = DetectClassFromFile(projPath + "/FileHandler.cs");
+            if (result == null && File.Exists(projPath + "/FileHandlerCustom.cs"))
+                result = DetectClassFromFile(projPath + "/FileHandlerCustom.cs");
+            if (result == null)
+                result = projName;
+            return result;
+        }
+
+        private string DetectClassFromFile(string path)
+        {
+            foreach (string line in File.ReadAllLines(path))
+            {
+                int index = line.IndexOf("class ");
+                if (index == -1 || (index != 0 && !"\t ".Contains(line[index - 1])))
+                    continue;
+                string result = line.Substring(index + 6);
+                index = result.IndexOfAny(new[] { ' ', '\t', ':', '{' });
+                if (index == -1)
+                    return result;
+                else return result.Substring(0, index);
+            }
             return null;
         }
 
