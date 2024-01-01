@@ -191,7 +191,8 @@ namespace uwap.VSIX.PluginFilePacker
                                     .Replace("{", "{{").Replace("}", "}}")
                                     .Replace("[PATH_PREFIX]", "{pathPrefix}")
                                     .Replace("[PATH_HOME]", "{(pathPrefix == \"\" ? \"/\" : pathPrefix)}")
-                                    .Replace("[DOMAIN]", "{domain}");
+                                    .Replace("[DOMAIN]", "{domain}")
+                                    .Replace("[DOMAIN_MAIN]", "{uwap.WebFramework.Parsers.DomainMain(domain)}");
                                 await writer.WriteLineAsync($"            \"{relPath}\" => System.Text.Encoding.UTF8.GetBytes(${content}),");
                                 continue;
                             }
