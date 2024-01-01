@@ -38,5 +38,15 @@ namespace uwap.VSIX.PluginFilePacker
             get { return _DefaultNamespace; }
             set { _DefaultNamespace = value; }
         }
+
+        private bool _ShowPopupWhenDone;
+        [Category("PluginFilePacker")]
+        [DisplayName("ShowPopupWhenDone")]
+        [Description("Whether to show a popup once FileHandler.cs was successfully generated.")]
+        public bool ShowPopupWhenDone
+        {
+            get => _ShowPopupWhenDone;
+            set => _ShowPopupWhenDone = value;
+        }
     }
 }
