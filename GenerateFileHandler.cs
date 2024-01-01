@@ -169,12 +169,10 @@ namespace uwap.VSIX.PluginFilePacker
                     IEnumerable<string> textTypes = options.TextExtensionsClean;
 
                     await writer.WriteLineAsync("using System.Text;");
-                    if (namespace_ != "uwap.WebFramework.Plugins")
-                        await writer.WriteLineAsync("using uwap.WebFramework.Plugins;");
                     await writer.WriteLineAsync();
                     await writer.WriteLineAsync($"namespace {namespace_};");
                     await writer.WriteLineAsync();
-                    await writer.WriteLineAsync($"public partial class {class_} : Plugin");
+                    await writer.WriteLineAsync($"public partial class {class_} : {(namespace_ != "uwap.WebFramework.Plugins" ? "uwap.WebFramework.Plugins." : "")}Plugin");
                     await writer.WriteLineAsync("{");
                     await writer.WriteLineAsync("    public override byte[]? GetFile(string relPath, string pathPrefix, string domain)");
                     await writer.WriteLineAsync("    {");
