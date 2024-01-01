@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="PluginFilePacker.38bb6d1e-b391-488b-aa4b-0348a4206a64" Version="2.1.1.1" Language="en-US" Publisher="uwap.org" />
+        <Identity Id="PluginFilePacker.38bb6d1e-b391-488b-aa4b-0348a4206a64" Version="2.2" Language="en-US" Publisher="uwap.org" />
         <DisplayName>PluginFilePacker</DisplayName>
         <Description xml:space="preserve">Generates a FileHandler.cs file for a WebFramework plugin's files in Files/.</Description>
         <MoreInfo>https://uwap.org/projects/plugin-file-packer</MoreInfo>
