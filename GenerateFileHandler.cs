@@ -133,7 +133,8 @@ namespace uwap.VSIX.PluginFilePacker
 
                         await Task.Delay(500);
                         await StatusbarTextAsync($"Successfully generated FileHandler.cs for {project.Name}!", statusbar);
-                        MessageBox("Done!", $"Successfully generated FileHandler.cs for {project.Name}!");
+                        if (options.ShowPopupWhenDone)
+                            MessageBox("Done!", $"Successfully generated FileHandler.cs for {project.Name}!");
                     }
                     catch (Exception ex)
                     {
