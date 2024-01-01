@@ -174,7 +174,6 @@ namespace uwap.VSIX.PluginFilePacker
                     await writer.WriteLineAsync("{");
                     await writer.WriteLineAsync("    public override byte[]? GetFile(string relPath, string pathPrefix, string domain)");
                     await writer.WriteLineAsync("    {");
-                    await writer.WriteLineAsync("        string pluginHome = pathPrefix == \"\" ? \"/\" : pathPrefix;");
                     await writer.WriteLineAsync("        return relPath switch");
                     await writer.WriteLineAsync("        {");
                     foreach (string file in Directory.GetFiles(filesPath, "*", SearchOption.AllDirectories))
@@ -192,7 +191,7 @@ namespace uwap.VSIX.PluginFilePacker
                                 content = Microsoft.CodeAnalysis.CSharp.SymbolDisplay.FormatLiteral(content, true)
                                     .Replace("{", "{{").Replace("}", "}}")
                                     .Replace("[PATH_PREFIX]", "{pathPrefix}")
-                                    .Replace("[PATH_HOME]", "{pluginHome}")
+                                    .Replace("[PATH_HOME]", "{(pathPrefix == \"\" ? \"/\" : pathPrefix)}")
                                     .Replace("[DOMAIN]", "{domain}");
                                 await writer.WriteLineAsync($"            \"{relPath}\" => System.Text.Encoding.UTF8.GetBytes(${content}),");
                                 continue;
