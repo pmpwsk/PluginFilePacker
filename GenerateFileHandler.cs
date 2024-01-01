@@ -168,8 +168,6 @@ namespace uwap.VSIX.PluginFilePacker
                     Dictionary<string, string> timestamps = new Dictionary<string, string>();
                     IEnumerable<string> textTypes = options.TextExtensionsClean;
 
-                    await writer.WriteLineAsync("using System.Text;");
-                    await writer.WriteLineAsync();
                     await writer.WriteLineAsync($"namespace {namespace_};");
                     await writer.WriteLineAsync();
                     await writer.WriteLineAsync($"public partial class {class_} : {(namespace_ != "uwap.WebFramework.Plugins" ? "uwap.WebFramework.Plugins." : "")}Plugin");
@@ -196,7 +194,7 @@ namespace uwap.VSIX.PluginFilePacker
                                     .Replace("[PATH_PREFIX]", "{pathPrefix}")
                                     .Replace("[PATH_HOME]", "{pluginHome}")
                                     .Replace("[DOMAIN]", "{domain}");
-                                await writer.WriteLineAsync($"            \"{relPath}\" => Encoding.UTF8.GetBytes(${content}),");
+                                await writer.WriteLineAsync($"            \"{relPath}\" => System.Text.Encoding.UTF8.GetBytes(${content}),");
                                 continue;
                             }
                         }
