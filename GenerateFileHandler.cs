@@ -173,8 +173,7 @@ namespace uwap.VSIX.PluginFilePacker
                     await writer.WriteLineAsync($"public partial class {class_} : {(namespace_ != "uwap.WebFramework.Plugins" ? "uwap.WebFramework.Plugins." : "")}Plugin");
                     await writer.WriteLineAsync("{");
                     await writer.WriteLineAsync("    public override byte[]? GetFile(string relPath, string pathPrefix, string domain)");
-                    await writer.WriteLineAsync("    {");
-                    await writer.WriteLineAsync("        return relPath switch");
+                    await writer.WriteLineAsync("        => relPath switch");
                     await writer.WriteLineAsync("        {");
                     foreach (string file in Directory.GetFiles(filesPath, "*", SearchOption.AllDirectories))
                     {
@@ -205,11 +204,9 @@ namespace uwap.VSIX.PluginFilePacker
                         await writer.WriteLineAsync("            _ => GetFileCustom(relPath, pathPrefix, domain)");
                     else await writer.WriteLineAsync("            _ => null");
                     await writer.WriteLineAsync("        };");
-                    await writer.WriteLineAsync("    }");
                     await writer.WriteLineAsync("    ");
                     await writer.WriteLineAsync("    public override string? GetFileVersion(string relPath)");
-                    await writer.WriteLineAsync("    {");
-                    await writer.WriteLineAsync("        return relPath switch");
+                    await writer.WriteLineAsync("        => relPath switch");
                     await writer.WriteLineAsync("        {");
                     foreach (var kv in timestamps)
                         await writer.WriteLineAsync($"            \"{kv.Key}\" => \"{kv.Value}\",");
@@ -217,7 +214,6 @@ namespace uwap.VSIX.PluginFilePacker
                         await writer.WriteLineAsync("            _ => GetFileVersionCustom(relPath)");
                     else await writer.WriteLineAsync("            _ => null");
                     await writer.WriteLineAsync("        };");
-                    await writer.WriteLineAsync("    }");
                     await writer.WriteLineAsync("}");
 
                     await writer.FlushAsync();
