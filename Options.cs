@@ -7,7 +7,7 @@ namespace uwap.VSIX.PluginFilePacker
 {
     internal class Options : DialogPage
     {
-        private bool _UseBase64 = true;
+        private bool _UseBase64 = false;
         [Category("PluginFilePacker")]
         [DisplayName("UseBase64")]
         [Description("Whether to use base64 to encode files (true, slightly more efficient runtime) or to specify files as byte arrays (false, way slower builds).")]
