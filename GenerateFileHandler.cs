@@ -259,6 +259,18 @@ namespace uwap.VSIX.PluginFilePacker
                     ReloadProject(projName, dte);
                 }
             }
+            else
+            {
+                if (File.Exists(projPath + "/Properties/PluginFiles.resx"))
+                    File.Delete(projPath + "/Properties/PluginFiles.resx");
+                if (File.Exists(projPath + "/Properties/PluginFiles.Designer.cs"))
+                    File.Delete(projPath + "/Properties/PluginFiles.Designer.cs");
+                if (SplitAtFirst(csproj, csprojStart, out string part1, out string part2) && SplitAtLast(part2, csprojEnd, out _, out string part2_2))
+                {
+                    csproj = part1 + part2_2;
+                    ReloadProject(projName, dte);
+                }
+            }
         }
 
         private string DetectNamespace(string projPath, Options options)
