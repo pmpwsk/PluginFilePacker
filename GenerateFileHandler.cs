@@ -107,7 +107,7 @@ namespace uwap.VSIX.PluginFilePacker
 
                 IVsStatusbar statusbar = (IVsStatusbar)await ServiceProvider.GetServiceAsync(typeof(SVsStatusbar));
                 DTE dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
-
+                
                 Array projects = (Array)dte.ActiveSolutionProjects;
                 if (projects == null || projects.Length == 0)
                 {
@@ -159,6 +159,8 @@ namespace uwap.VSIX.PluginFilePacker
             if (!Directory.Exists(filesPath))
                 throw new Exception("Directory 'Files' not found!");
 
+            Dictionary<string,string> resourceFiles = options.UseBase64 ? null : new Dictionary<string, string>();
+
             string namespace_ = DetectNamespace(projPath, options);
             string class_ = DetectClass(projPath, projName);
             using (StreamWriter writer = new StreamWriter($"{projPath}/FileHandler.cs", false, Encoding.UTF8))
@@ -201,7 +203,12 @@ namespace uwap.VSIX.PluginFilePacker
                         }
                         if (options.UseBase64)
                             await writer.WriteLineAsync($"            \"{relPath}\" => Convert.FromBase64String(\"{Convert.ToBase64String(File.ReadAllBytes(file))}\"),");
-                        else await writer.WriteLineAsync($"            \"{relPath}\" => new byte[] {{ {string.Join(",", File.ReadAllBytes(file))} }},");
+                        else
+                        {
+                            string key = Convert.ToBase64String(Encoding.UTF8.GetBytes(relPath)).TrimEnd('=');
+                            resourceFiles[key] = file;
+                            await writer.WriteLineAsync($"            \"{relPath}\" => {projName}.Properties.PluginFiles.{key},");
+                        }
                     }
                     if (File.Exists(projPath + "/FileHandlerCustom.cs"))
                         await writer.WriteLineAsync("            _ => GetFileCustom(relPath, pathPrefix, domain)");
