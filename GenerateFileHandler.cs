@@ -152,6 +152,7 @@ namespace uwap.VSIX.PluginFilePacker
 
         private async Task GenerateAsync(string projName, string projPath, Options options, Project project, DTE dte)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             string filesPath = projPath + "/Files";
             if (!Directory.Exists(filesPath))
                 throw new Exception("Directory 'Files' not found!");
