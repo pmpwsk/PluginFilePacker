@@ -300,5 +300,25 @@ namespace uwap.VSIX.PluginFilePacker
                 OLEMSGICON.OLEMSGICON_INFO,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+
+        /// <summary>
+        /// Splits the string at the last occurrence of the given separator and returns both parts.
+        /// </summary>
+        private static bool SplitAtLast(string value, string separator, out string part1, out string part2)
+        {
+            int index = value.LastIndexOf(separator);
+            if (index == -1)
+            {
+                part1 = value;
+                part2 = "";
+                return false;
+            }
+            else
+            {
+                part1 = value.Remove(index);
+                part2 = value.Remove(0, index + separator.Length);
+                return true;
+            }
+        }
     }
 }
