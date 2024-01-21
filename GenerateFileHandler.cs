@@ -281,6 +281,16 @@ namespace uwap.VSIX.PluginFilePacker
             return null;
         }
 
+        private void ReloadProject(string projName, DTE dte)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            string solutionName = Path.GetFileNameWithoutExtension(dte.Solution.FullName);
+            dte.Windows.Item(EnvDTE.Constants.vsWindowKindSolutionExplorer).Activate();
+            ((DTE2)dte).ToolWindows.SolutionExplorer.GetItem($"{solutionName}\\{projName}").Select(vsUISelectionType.vsUISelectionTypeSelect);
+            dte.ExecuteCommand("Project.UnloadProject");
+            dte.ExecuteCommand("Project.ReloadProject");
+        }
+
         private async Task StatusbarTextAsync(string text, IVsStatusbar statusbar)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
