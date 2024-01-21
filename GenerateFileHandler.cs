@@ -126,7 +126,7 @@ namespace uwap.VSIX.PluginFilePacker
                         await StatusbarTextAsync($"Generating FileHandler.cs for {project.Name}...", statusbar);
                         string projPath = new FileInfo(project.FullName).DirectoryName;
 
-                        await GenerateAsync(project.Name, projPath, options);
+                        await GenerateAsync(project.Name, projPath, options, project, dte);
 
                         await Task.Delay(500);
                         await StatusbarTextAsync($"Successfully generated FileHandler.cs for {project.Name}!", statusbar);
@@ -150,7 +150,7 @@ namespace uwap.VSIX.PluginFilePacker
             }
         }
 
-        private async Task GenerateAsync(string projName, string projPath, Options options)
+        private async Task GenerateAsync(string projName, string projPath, Options options, Project project, DTE dte)
         {
             string filesPath = projPath + "/Files";
             if (!Directory.Exists(filesPath))
