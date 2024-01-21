@@ -10,7 +10,7 @@ namespace uwap.VSIX.PluginFilePacker
         private bool _UseBase64 = false;
         [Category("PluginFilePacker")]
         [DisplayName("UseBase64")]
-        [Description("Whether to use base64 to encode files (true, slightly more efficient runtime) or to specify files as byte arrays (false, way slower builds).")]
+        [Description("Whether to use base64 to encode non-custom files instead of adding them as project resources. This makes for a simpler project structure, but might cause slower build times or errors about reaching the combined string length limit.")]
         public bool UseBase64
         {
             get { return _UseBase64; }
