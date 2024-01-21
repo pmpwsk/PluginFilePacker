@@ -233,6 +233,32 @@ namespace uwap.VSIX.PluginFilePacker
                     writer.Dispose();
                 }
             }
+
+            string csprojStart = "<!--PluginFilePacker start-->";
+            string csprojMain = "<ItemGroup><Compile Update=\"Properties\\PluginFiles.Designer.cs\"><DesignTime>True</DesignTime><AutoGen>True</AutoGen><DependentUpon>PluginFiles.resx</DependentUpon></Compile></ItemGroup><ItemGroup><EmbeddedResource Update=\"Properties\\PluginFiles.resx\"><Generator>ResXFileCodeGenerator</Generator><LastGenOutput>PluginFiles.Designer.cs</LastGenOutput></EmbeddedResource></ItemGroup>";
+            string csprojEnd = "<!--PluginFilePacker end-->";
+            string csproj = File.ReadAllText($"{projPath}/{projName}.csproj");
+            if (resourceFiles != null && resourceFiles.Count > 0)
+            {
+                if (!csproj.Contains(csprojStart + csprojMain + csprojEnd))
+                {
+                    if (SplitAtFirst(csproj, csprojStart, out string part1, out string part2))
+                    {
+                        if (SplitAtLast(part2, csprojEnd, out _, out string part2_2))
+                            csproj = part1 + csprojStart + csprojMain + csprojEnd + part2_2;
+                        else csproj = part1 + csprojStart + csprojMain + csprojEnd + part2;
+                    }
+                    else if (SplitAtLast(csproj, "</Project>", out string beforeEnd, out string afterEnd))
+                    {
+                        if (SplitAtLast(beforeEnd, "\n", out string beforeEnd_1, out string beforeEnd_2))
+                            csproj = beforeEnd_1 + "\n" + beforeEnd_2 + "  " + csprojStart + csprojMain + csprojEnd + "\n" + beforeEnd_2 + "</Project>" + afterEnd;
+                        else csproj = beforeEnd + csprojStart + csprojMain + csprojEnd + "</Project>" + afterEnd;
+                    }
+                    else throw new Exception("The RESX file couldn't be attached to the project!");
+                    File.WriteAllText($"{projPath}/{projName}.csproj", csproj);
+                    ReloadProject(projName, dte);
+                }
+            }
         }
 
         private string DetectNamespace(string projPath, Options options)
