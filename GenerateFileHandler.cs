@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using Task = System.Threading.Tasks.Task;
 
@@ -257,6 +258,13 @@ namespace uwap.VSIX.PluginFilePacker
                     else throw new Exception("The RESX file couldn't be attached to the project!");
                     File.WriteAllText($"{projPath}/{projName}.csproj", csproj);
                     ReloadProject(projName, dte);
+                }
+
+                Directory.CreateDirectory(projPath + "/Properties");
+                using (var writer = new ResXResourceWriter(projPath + "/Properties/PluginFiles.resx"))
+                {
+                    foreach (var kv in resourceFiles)
+                        writer.AddResource(kv.Key, File.ReadAllBytes(kv.Value));
                 }
             }
             else
