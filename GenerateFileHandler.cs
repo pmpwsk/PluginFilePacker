@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
+using VSLangProj;
 using Task = System.Threading.Tasks.Task;
 
 namespace uwap.VSIX.PluginFilePacker
@@ -266,6 +267,18 @@ namespace uwap.VSIX.PluginFilePacker
                     foreach (var kv in resourceFiles)
                         writer.AddResource(kv.Key, File.ReadAllBytes(kv.Value));
                 }
+
+                VSProjectItem resx = null;
+                for (int i = 0; i < 10; i++)
+                {
+                    resx = dte.Solution.FindProjectItem(projPath + "/Properties/PluginFiles.resx")?.Object as VSProjectItem;
+                    if (resx != null)
+                        break;
+                    else await Task.Delay(1000);
+                }
+                if (resx == null)
+                    throw new Exception("The RESX file couldn't be found as a project item! This can usually be fixed by trying again - otherwise, try restarting Visual Studio.");
+                else resx.RunCustomTool();
             }
             else
             {
