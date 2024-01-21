@@ -4,12 +4,9 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Task = System.Threading.Tasks.Task;
 
 namespace uwap.VSIX.PluginFilePacker
