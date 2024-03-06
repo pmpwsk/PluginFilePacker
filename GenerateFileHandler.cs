@@ -173,6 +173,11 @@ namespace uwap.VSIX.PluginFilePacker
 
                     string wfNamespacePrefix = (namespace_ == "uwap.WebFramework" || namespace_.StartsWith("uwap.WebFramework.")) ? "" : "uwap.WebFramework.";
 
+                    if (!options.UseBase64)
+                    {
+                        await writer.WriteLineAsync($"using {projName}.Properties;");
+                        await writer.WriteLineAsync();
+                    }
                     await writer.WriteLineAsync($"namespace {namespace_};");
                     await writer.WriteLineAsync();
                     await writer.WriteLineAsync($"public partial class {class_} : {(namespace_ != "uwap.WebFramework.Plugins" ? "uwap.WebFramework.Plugins." : "")}Plugin");
@@ -208,7 +213,7 @@ namespace uwap.VSIX.PluginFilePacker
                         {
                             string key = Convert.ToBase64String(Encoding.UTF8.GetBytes(relPath)).TrimEnd('=');
                             resourceFiles[key] = file;
-                            await writer.WriteLineAsync($"            \"{relPath}\" => {projName}.Properties.PluginFiles.{key},");
+                            await writer.WriteLineAsync($"            \"{relPath}\" => PluginFiles.{key},");
                         }
                     }
                     if (File.Exists(projPath + "/FileHandlerCustom.cs"))
