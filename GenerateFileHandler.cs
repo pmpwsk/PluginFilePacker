@@ -309,18 +309,6 @@ namespace uwap.VSIX.PluginFilePacker
             return null;
         }
 
-        private string DetectClass(string projPath, string projName)
-        {
-            string result = null;
-            if (File.Exists(projPath + "/FileHandler.cs"))
-                result = DetectClassFromFile(projPath + "/FileHandler.cs");
-            if (result == null && File.Exists(projPath + "/FileHandlerCustom.cs"))
-                result = DetectClassFromFile(projPath + "/FileHandlerCustom.cs");
-            if (result == null)
-                result = projName;
-            return result;
-        }
-
         private string DetectClassFromFile(string path)
         {
             if (!File.Exists(path))
