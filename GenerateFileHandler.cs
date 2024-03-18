@@ -299,18 +299,6 @@ namespace uwap.VSIX.PluginFilePacker
             }
         }
 
-        private string DetectNamespace(string projPath, Options options)
-        {
-            string result = null;
-            if (File.Exists(projPath + "/FileHandler.cs"))
-                result = DetectNamespaceFromFile(projPath + "/FileHandler.cs");
-            if (result == null && File.Exists(projPath + "/FileHandlerCustom.cs"))
-                result = DetectNamespaceFromFile(projPath + "/FileHandlerCustom.cs");
-            if (result == null)
-                result = options.DefaultNamespace;
-            return result;
-        }
-
         private string DetectNamespaceFromFile(string path)
         {
             if (!File.Exists(path))
