@@ -335,6 +335,8 @@ namespace uwap.VSIX.PluginFilePacker
 
         private string DetectClassFromFile(string path)
         {
+            if (!File.Exists(path))
+                return null;
             foreach (string line in File.ReadAllLines(path))
             {
                 int index = line.IndexOf("class ");
