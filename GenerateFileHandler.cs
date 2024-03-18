@@ -188,7 +188,6 @@ namespace uwap.VSIX.PluginFilePacker
                     foreach (string file in Directory.GetFiles(filesPath, "*", SearchOption.AllDirectories))
                     {
                         string relPath = file.Remove(0, filesPath.Length).Replace('\\', '/');
-                        Console.WriteLine("  " + relPath);
                         timestamps.Add(relPath, File.GetLastWriteTimeUtc(file).Ticks.ToString());
                         //check content as text file if it's a text file type
                         if (textTypes.Any(relPath.EndsWith))
