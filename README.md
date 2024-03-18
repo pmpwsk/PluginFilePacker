@@ -8,7 +8,7 @@ Website: https://uwap.org/projects/plugin-file-packer
 Version for Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=uwap-org.uwap-pluginfilepacker-vsc
 
 ## Main features
-- Generating a plugin file handler for static files (using text for dynamically modified text files or using a byte array / base64 string otherwise (depending on the setting))
+- Generating a plugin file handler for static files (using text for dynamically modified text files or using a .RESX file / base64 string otherwise (depending on the setting))
 - Calling a custom file handler if no matching file was found (see "Usage" below)
 - Automatically detecting the namespace of the existing FileHandler.cs or FileHandlerCustom.cs
 - Dynamically replacing [PATH_PREFIX] with the current plugin path prefix, [PATH_HOME] with the plugin's current home/root path, [DOMAIN] with the current domain and [DOMAIN_MAIN] with the main domain for the current domain
