@@ -185,6 +185,7 @@ namespace uwap.VSIX.PluginFilePacker
                     await writer.WriteLineAsync("    public override byte[]? GetFile(string relPath, string pathPrefix, string domain)");
                     await writer.WriteLineAsync("        => relPath switch");
                     await writer.WriteLineAsync("        {");
+                    int resxIndex = 0;
                     foreach (string file in Directory.GetFiles(filesPath, "*", SearchOption.AllDirectories))
                     {
                         string relPath = file.Remove(0, filesPath.Length).Replace('\\', '/');
@@ -210,9 +211,9 @@ namespace uwap.VSIX.PluginFilePacker
                             await writer.WriteLineAsync($"            \"{relPath}\" => Convert.FromBase64String(\"{Convert.ToBase64String(File.ReadAllBytes(file))}\"),");
                         else
                         {
-                            string key = Convert.ToBase64String(Encoding.UTF8.GetBytes(relPath)).TrimEnd('=');
-                            resourceFiles[key] = file;
-                            await writer.WriteLineAsync($"            \"{relPath}\" => PluginFiles.{key},");
+                            resourceFiles[$"File{resxIndex}"] = file;
+                            await writer.WriteLineAsync($"            \"{relPath}\" => PluginFiles.File{resxIndex},");
+                            resxIndex++;
                         }
                     }
                     if (File.Exists(projPath + "/FileHandlerCustom.cs"))
