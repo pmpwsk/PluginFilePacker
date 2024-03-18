@@ -313,6 +313,8 @@ namespace uwap.VSIX.PluginFilePacker
 
         private string DetectNamespaceFromFile(string path)
         {
+            if (!File.Exists(path))
+                return null;
             foreach (string line in File.ReadAllLines(path))
                 if (line.StartsWith("namespace "))
                     return line.Remove(0, 10).Split(' ', '{', ';').First();
