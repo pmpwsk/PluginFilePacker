@@ -162,7 +162,7 @@ namespace uwap.VSIX.PluginFilePacker
 
             Dictionary<string,string> resourceFiles = options.UseBase64 ? null : new Dictionary<string, string>();
 
-            string namespace_ = DetectNamespace(projPath, options);
+            string namespace_ = DetectNamespaceFromFile(projPath + "/FileHandler.cs") ?? DetectNamespaceFromFile(projPath + "/FileHandlerCustom.cs") ?? options.DefaultNamespace;
             string class_ = DetectClass(projPath, projName);
             using (StreamWriter writer = new StreamWriter($"{projPath}/FileHandler.cs", false, Encoding.UTF8))
             {
