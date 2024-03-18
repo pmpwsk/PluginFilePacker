@@ -5,6 +5,8 @@ Example of a generated file on GitHub: [ServerPlugin/FileHandler.cs](https://git
 
 Website: https://uwap.org/projects/plugin-file-packer
 
+Version for Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=uwap-org.uwap-pluginfilepacker-vsc
+
 ## Main features
 - Generating a plugin file handler for static files (using text for dynamically modified text files or using a byte array / base64 string otherwise (depending on the setting))
 - Calling a custom file handler if no matching file was found (see "Usage" below)
