@@ -23,6 +23,4 @@ To execute the command, go to: <code>Tools > Generate FileHandler.cs</code> (if 
 
 There are some settings under <code>Tools > Options > PluginFilePacker</code>, those are documented in their description.
 
-The generated partial class will have the name of the project, so make sure the rest of your plugin matches that.
-
 To create a custom file handler as a fallback, create a file <code>FileHandlerCustom.cs</code> using the same namespace and partial class, then add two methods like this:<br/><code>byte[]? GetFileCustom(string relPath, string pathPrefix, string domain)</code><br/><code>string? GetFileVersionCustom(string relPath)</code>
