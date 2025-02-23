@@ -1,7 +1,21 @@
-# uwap.org Open-Source License 1.1
-Copyright: uwap.org, 2023 and up
+MIT License
 
-- This project comes without any warranty or liability.
-- For copies or forks with minor changes: You may redistribute the code freely. This project's name must be retained (modifications may be appended) and the original source and author must be clearly referenced. You may not accept any form of payment for it and the code must remain open-source.
-- For forks with major changes: You may change the name completely. The code must be free-of-charge and open-source. Along publications of the source code, the source and author of the original project must be clearly referenced.
-- For projects using this project as a library (not forking): You may name the project however you like. The project may be paid and closed-source. References to the original source and author would be well appreciated, but are not a requirement.
+Copyright (c) 2025 uwap.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
